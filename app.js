@@ -7,7 +7,22 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+// login 登录接口
+var loginRouter = require('./routes/login');
+
+// --引入 jwt--
+var jwt = require('./utils/jwt');
+var passport = jwt.passport;
+var bodyParser = jwt.bodyParser;
+
 var app = express();
+
+// -- 使用 passport bodyParser--
+app.use(passport.initialize());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +36,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+// app.use('/login', function(req, res){
+//   res.json({"mes": "1231"});
+// });
+app.use('/login', loginRouter);
+
+// 登录接口
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
