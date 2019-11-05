@@ -1,3 +1,8 @@
+var User = require("../../model/user");
+
+// 基本模型操作
 exports.some = (req, res) => {
-  res.send("some ... 为啥我要叫这个方法名... 我也不知道");
+  User.findAll().then(users => {
+    res.send(JSON.stringify(users, null, 4));
+  })
 }
