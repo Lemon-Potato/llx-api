@@ -1,6 +1,19 @@
+/**
+ * JWT 验证方式
+ * Header 带上 KEY => Authorization  VALUE => Bearer(空格)token
+ */
 var bodyParser = require("body-parser");
 var passport = require("passport");
 var passportJWT = require("passport-jwt");
+
+// 还没引入数据库查
+var users = [
+  {
+    id: 1,
+    name: 'test',
+    password: 'test'
+  }
+];
 
 var ExtractJwt = passportJWT.ExtractJwt;
 var JwtStrategy = passportJWT.Strategy;

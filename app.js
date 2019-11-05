@@ -9,6 +9,8 @@ var usersRouter = require('./routes/users');
 
 // login 登录接口
 var loginRouter = require('./routes/login');
+// api 基础出口
+var apiRouter = require('./routes/api');
 
 // --引入 jwt--
 var jwt = require('./utils/jwt');
@@ -36,12 +38,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-// app.use('/login', function(req, res){
-//   res.json({"mes": "1231"});
-// });
-app.use('/login', loginRouter);
 
 // 登录接口
+app.use('/login', loginRouter);
+// API 接口
+app.use('/api', passport.authenticate('jwt', { session: false }), apiRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
