@@ -26,6 +26,7 @@ router.post('/', function(req, res, next) {
   if(user.password === req.body.password) {
     var payload = { id: user.id };
     var token = jwt.sign(payload, jwtOptions.secretOrKey);
+    req.session.user = user;
     res.json({code: "200", message: "ok", token: token});
   } else {
     res.status(401).json({message: "账号或密码错误"});

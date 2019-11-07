@@ -12,4 +12,15 @@ const Mysql = {
   }
 };
 
-module.exports = Mysql;
+const Redis = {
+  host: '127.0.0.1',
+  port: '6379',
+  auth: '123456',
+  opt: {
+    auth_pass: '123456',
+    db: 1
+  }
+};
+
+module.exports.Mysql = Mysql;
+module.exports.Redis = Redis;

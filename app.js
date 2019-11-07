@@ -7,6 +7,14 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
+var redisClient = require('./utils/redisHandle');
+
+const sessionStore = new RedisStore({
+  client: redisClient
+})
+
 // login 登录接口
 var loginRouter = require('./routes/login');
 // api 基础出口
@@ -25,6 +33,17 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json())
+
+// session
+app.use(session({
+  cookieName: 'session',
+  secret: 'jyslbcqmygysdssjtwmydtsgx',
+  duration: 30 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000,
+  store: sessionStore,
+  saveUninitialized: false,
+  resave: false,
+}))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
