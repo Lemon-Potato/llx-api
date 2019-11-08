@@ -5,4 +5,10 @@ const controller = require('../controller');
 
 router.get('/some', controller.userControlelr.some);
 
+// 正式开工
+router.get('/auth/getRuleMenu', controller.authControlelr.getRuleMenu);
+router.get('/auth/addUserRule', controller.authControlelr.addUserRule);
+router.get('/auth/getAllRule', controller.authControlelr.getAllRule);
+
+
 module.exports = router;

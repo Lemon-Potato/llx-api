@@ -1,8 +1,9 @@
 var User = require("../../model/user");
+var UserRule = require("../../model/userRule");
 
 // 基本模型操作
 exports.some = (req, res) => {
-  User.findAll().then(users => {
-    res.send(JSON.stringify(users, null, 4));
+  UserRule.findAll().then(userRules => {
+    res.send(JSON.stringify(userRules, null, 4));
   })
 }
