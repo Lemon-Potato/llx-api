@@ -1,4 +1,5 @@
 var UserRule = require("../../model/userRule");
+var UserGroup = require("../../model/userGroup");
 var translateDataToTree = require("../../common/function").translateDataToTree;
 var returnJson = require("../../common/function").returnJson;
 var checkDataComplete = require("../../common/function").checkDataComplete;
@@ -65,6 +66,42 @@ exports.getAllRule = (req, res) => {
     let ruleTree = translateDataToTree(data, "pid", "id", "children");
     let result = {};
     result.authRules = ruleTree
+    res.send(JSON.stringify(returnJson(result)))
+  })
+}
+
+/**
+ * 获取所有权限角色信息
+ * 结构：树形
+ */
+exports.getAllGroup = (req, res) => {
+  UserGroup.findAll({
+    attributes: ['id', 'pid', 'name', 'status']
+  }).then((groups) => {
+    let data = []
+    groups.forEach((ele) => {
+      data.push(ele['dataValues'])
+    })
+    let ruleTree = translateDataToTree(data, "pid", "id", "children");
+    let result = {};
+    result.groups = ruleTree
+    res.send(JSON.stringify(returnJson(result)))
+  })
+}
+
+/**
+ * 获取所有权限角色信息
+ * 结构：无结构
+ */
+exports.getGroupInfo = (req, res) => {
+  UserGroup.findAll({
+    attributes: ['id', 'pid', 'name'],
+    where: {
+      status: 1
+    }
+  }).then((groups) => {
+    let result = {};
+    result.groups = groups
     res.send(JSON.stringify(returnJson(result)))
   })
 }

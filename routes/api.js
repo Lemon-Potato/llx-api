@@ -9,6 +9,8 @@ router.get('/some', controller.userControlelr.some);
 router.get('/auth/getRuleMenu', controller.authControlelr.getRuleMenu);
 router.get('/auth/addUserRule', controller.authControlelr.addUserRule);
 router.get('/auth/getAllRule', controller.authControlelr.getAllRule);
+router.get('/auth/getAllGroup', controller.authControlelr.getAllGroup);
+router.get('/auth/getGroupInfo', controller.authControlelr.getGroupInfo);
 
 
 module.exports = router;
